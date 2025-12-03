@@ -63,3 +63,4 @@ mkdir -p ~/videos/
 cp -rv config/* ~/.config/
 cp -rv wallpapers/* ~/wallpapers/
 
+cp -rv bash/.* ~/
