@@ -1,0 +1,12 @@
+#!/bin/bash
+
+tui=$1
+
+riverctl rule-add -app-id 'com.mitchellh.ghostty.floating' float
+riverctl spawn "ghostty \
+  --theme='Catppuccin Frappe' \
+  --class=com.mitchellh.ghostty.floating \
+  --background-opacity=0.98 \
+  -e $1"
+
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo
+gum spin --spinner "dot" --title "All done, press any key..." -- bash -c 'read -n 1 -s'

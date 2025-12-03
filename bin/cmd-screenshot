@@ -1,0 +1,23 @@
+#!/bin/bash
+
+pkill slurp && exit 0
+
+MODE="${1:-region}"
+PROCESSING="${2:-slurp}"
+
+# Select based on mode
+case "$MODE" in
+  region)
+    wayfreeze & PID=$!
+    sleep .1
+    SELECTION=$(slurp 2>/dev/null)
+    kill $PID 2>/dev/null
+    ;;
+esac
+
+[ -z "$SELECTION" ] && exit 0
+
+if [[ $PROCESSING == "slurp" ]]; then
+  grim -g "$SELECTION" - | wl-copy
+fi
+

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+CHOICE=$(printf "lock\nsuspend\nreboot\nshutdown\nscreen-record\n" | fzf)
+
+case "$CHOICE" in
+  lock)
+    swaylock
+    ;;
+  suspend)
+    riverctl spawn 'swaylock -f && systemctl suspend'
+    ;;
+  shutdown)
+    systemctl shutdown now
+    ;;
+  reboot)
+    systemctl reboot
+    ;;
+  screen-record)
+    cmd-screen-record && sleep 2
+    ;;
+esac

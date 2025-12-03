@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if cmd-check-updates; then
+  exit 0
+fi
+
+echo "Pacman: $(pacman -Qu --explicit | wc -l)"
+pacman -Qu --explicit
+
+echo
+echo "AUR: $(yay -Qu --explicit | wc -l)"
+yay -Qu --explicit
+
+gum confirm "Update all?"
+
+if [ $? -eq 0 ]; then
+  sudo pacman -Syu --noconfirm
+  yay -Syu --noconfirm
+else
+    exit 0
+fi
