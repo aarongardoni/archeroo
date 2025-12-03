@@ -6,5 +6,5 @@ It's been inspired by trying out Omarchy.
 
 TODO - Finish this README.
 
-![Screenshot][./image.png]
+![Screenshot of setup](/images/screenshot.png)
 
