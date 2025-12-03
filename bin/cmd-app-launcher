@@ -2,6 +2,8 @@
 
 fzf_args=(
     --color 'pointer:green,marker:green'
+    --border=rounded
+    --border-label="App Menu"
 )
 
 filter_valid_apps() {
@@ -32,4 +34,8 @@ filter_valid_apps() {
 app_name=$(filter_valid_apps | fzf "${fzf_args[@]}")
 
 # Add .desktop back for gtk-launch
-setsid gtk-launch "${app_name}.desktop"
+if [[ -n $app_name ]]; then
+  setsid gtk-launch "$app_name.desktop"
+  sleep 0.5
+fi
+
