@@ -60,7 +60,6 @@ mkdir -p ~/wallpapers/
 mkdir -p ~/screenshots/
 mkdir -p ~/videos/
 
-cp -rv config/* ~/.config/
-cp -rv wallpapers/* ~/wallpapers/
-
-cp -rv bash/.* ~/
+stow --verbose=2 -t ~/wallpapers/ wallpapers/
+stow --verbose=2 -t ~ bash
+stow --verbose=2 -t ~/.config config/
