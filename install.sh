@@ -20,17 +20,18 @@ popd
 echo
 echo "--- Updating desktop applications"
 echo
-pushd /usr/share/applications;
-  # TODO: This should come from packages or something
-  apps=("zen" "slack" "ghostty" "bolt-launcher" "firefox" "nvim" "spotify" "discord")
 
-  for file in *; do
+mapfile -t app_pkgs < <(cat packages/aur.packages packages/official.packages | sed 's/-.*//' | sort | uniq)
+
+pushd /usr/share/applications;
+  for file in *.desktop; do
     # Check if the item is a regular file
     if [ -f "$file" ]; then
+      app_stem=${file%.desktop}
       found=false
 
-      for app in "${apps[@]}"; do
-        if [[ "$file" == *"$app"* ]]; then
+      for app_pkg in "${app_pkgs[@]}"; do
+        if [[ "$app_pkg" == "$app_stem" ]]; then
           found=true
           break
         fi
@@ -56,10 +57,12 @@ echo
 echo "--- Copying files"
 echo
 
+echo "creating dirs..."
 mkdir -p ~/wallpapers/
 mkdir -p ~/screenshots/
 mkdir -p ~/videos/
 
-stow --verbose=2 -t ~/wallpapers/ wallpapers/
-stow --verbose=2 -t ~ bash
-stow --verbose=2 -t ~/.config config/
+echo "running stow..."
+stow -t ~/wallpapers/ wallpapers/
+stow -t ~ bash
+stow -t ~/.config config/
