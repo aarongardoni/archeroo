@@ -2,7 +2,7 @@
 
 fzf_args=(
     --color 'pointer:green,marker:green'
-    --border=rounded
+    --border=sharp
     --border-label="App Menu"
 )
 
@@ -37,6 +37,6 @@ if [[ -n $app_name ]]; then
   # runelite needs this for resizing and probably other JVM apps
   export _JAVA_AWT_WM_NONREPARENTING=1
   setsid gtk-launch "$app_name.desktop"
-  sleep 0.25
+  gum spin --spinner dot --title "Launching $app_name..." -- sleep 0.25
 fi
 

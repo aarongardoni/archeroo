@@ -1,7 +1,7 @@
 #!/bin/bash
 
 fzf_argrs=(
-  --border=rounded
+  --border=sharp
   --border-label="Package Uninstall"
 )
 
