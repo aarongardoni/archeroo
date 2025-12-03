@@ -1,6 +1,12 @@
 #!/bin/bash
 
-CHOICE=$(printf "lock\nsuspend\nreboot\nshutdown\nscreen-record\n" | fzf)
+fzf_argrs=(
+  --border=rounded
+  --border-label="Package Uninstall"
+)
+
+options=$(printf "lock\nsuspend\nreboot\nshutdown\nscreen-record\n")
+CHOICE=$(echo "$options" | fzf "${fzf_args[@]}")
 
 case "$CHOICE" in
   lock)
