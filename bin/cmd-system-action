@@ -5,7 +5,7 @@ fzf_argrs=(
   --border-label="Package Uninstall"
 )
 
-options=$(printf "lock\nsuspend\nreboot\nshutdown\nscreen-record\n")
+options=$(printf "lock\nsuspend\nreboot\nshutdown\n")
 CHOICE=$(echo "$options" | fzf "${fzf_args[@]}")
 
 case "$CHOICE" in
@@ -16,12 +16,9 @@ case "$CHOICE" in
     riverctl spawn 'swaylock -f && systemctl suspend'
     ;;
   shutdown)
-    systemctl shutdown now
+    systemctl poweroff
     ;;
   reboot)
     systemctl reboot
-    ;;
-  screen-record)
-    cmd-screen-record && sleep 2
     ;;
 esac
