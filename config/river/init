@@ -37,6 +37,12 @@ riverctl map normal Super l spawn 'swaylock -f'
 riverctl map normal Super+Shift L spawn 'swaylock -f && systemctl suspend'
 # record
 riverctl map normal Super+Shift R spawn 'cmd-screen-record'
+# discord
+riverctl map normal Super+Shift D spawn 'discord'
+# old school runescape
+riverctl map normal Super+Shift O spawn 'bolt-launcher'
+# spotify (music)
+riverctl map normal Super+Shift M spawn 'spotify'
 
 # Super+Q to close the focused view
 riverctl map normal Super Q close

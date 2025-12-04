@@ -36,7 +36,7 @@ app_name=$(filter_valid_apps | fzf "${fzf_args[@]}")
 if [[ -n $app_name ]]; then
   # runelite needs this for resizing and probably other JVM apps
   export _JAVA_AWT_WM_NONREPARENTING=1
-  setsid gtk-launch "$app_name.desktop"
+  setsid gtk-launch $app_name
   gum spin --spinner dot --title "Launching $app_name..." -- sleep 0.25
 fi
 

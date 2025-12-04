@@ -7,6 +7,6 @@ riverctl spawn "ghostty \
   --theme='Catppuccin Frappe' \
   --class=com.mitchellh.ghostty.floating \
   --background-opacity=0.98 \
-  -e $1"
+  -e bash -lc '$tui'"
 
 
