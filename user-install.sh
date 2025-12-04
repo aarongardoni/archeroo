@@ -5,16 +5,22 @@ if [ "$EUID" -eq 0 ]; then
   exit 1
 fi
 
-echo
-echo "--- Installing yay"
-echo
+if command -v yay &> /dev/null; then
+    echo "yay is installed."
+else
+    echo "yay is not installed."
 
-rm -rf yay
-git clone https://aur.archlinux.org/yay.git
-pushd yay
-  makepkg -si
-popd
-rm -rf yay
+    echo
+    echo "--- Installing yay"
+    echo
+
+    rm -rf yay
+    git clone https://aur.archlinux.org/yay.git
+    pushd yay
+      makepkg -si
+    popd
+    rm -rf yay
+fi
 
 echo
 echo "--- Installing packages"
@@ -27,7 +33,7 @@ yay -Sy --noconfirm
 
 echo "Starting installation of aur packages..."
 
-yay -S --noconfirm "${app_pkgs[@]}"
+yay -S --noconfirm --needed "${app_pkgs[@]}"
 
 echo "Installation complete."
 
@@ -96,6 +102,15 @@ pushd /usr/share/applications;
   done
 popd
 
+DIRECTORY="$HOME/.tmux/plugins/tpm"
+
+if [ -d "$DIRECTORY" ]; then
+  echo "TPM installed already skipping..."
+else
+  echo "Installing TPM..."
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
 echo
 echo "--- Copying files"
 echo
@@ -106,6 +121,7 @@ mkdir -p ~/screenshots/
 mkdir -p ~/videos/
 
 echo "running stow..."
-stow -t ~/wallpapers/ wallpapers/
-stow -t ~ bash
-stow -t ~/.config config/
+stow --adopt -t ~/wallpapers/ wallpapers/
+stow --adopt -t ~ bash
+stow --adopt -t ~/.config config/
+

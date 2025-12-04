@@ -10,6 +10,7 @@ This is my Arch Linux desktop setup. I was inspired when playing around with [Om
 - UEFI
 - Intel CPU
 - Nvidia GPU (Turing)
+- Wi-Fi
 
 Follow the [Arch Linux installation guide](https://wiki.archlinux.org/title/Installation_guide).
 
@@ -17,9 +18,9 @@ You can also read through the post install recommendations.
 
 #### Post Arch Install
 
-1. Install packages.
+1. Install git.
 ```
-./root-install.sh
+pacman -Sy git sudo neovim
 ```
 
 2. Update `/etc/sudoers`.
@@ -36,12 +37,41 @@ You can also read through the post install recommendations.
 useradd -m -G wheel -s /bin/bash aaron
 ```
 
-4. Run the user install script.
+4. Set a password.
+```
+passwd aaron
+```
+
+5. Change to user.
+```
+su aaron -
+```
+
+6. Clone.
+```
+mkdir -p ~/.code/
+cd ~/code
+git clone https://github.com/aarongardoni/archeroo.git
+```
+
+7. Install as root.
+```
+cd archeroo
+sudo ./root-install.sh
+```
+
+8. Run the user install script.
 ```
 ./user-install.sh
 ```
 
-5. Enjoy!
+9. Install tmux plugins.
+```
+# press the follwing keys
+# Super+Shift+Enter -> launcher terminal
+tmux
+# Control+B Shift+i
+```
 
-# TODO: I haven't scripted any of the setup required for starting systemd services etc
+10. Enjoy!
 

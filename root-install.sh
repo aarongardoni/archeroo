@@ -12,7 +12,19 @@ pacman -Sy --noconfirm
 
 echo "Starting installation of official packages..."
 
-pacman -S --noconfirm "${app_pkgs[@]}"
+pacman -S --noconfirm --needed "${app_pkgs[@]}"
 
 echo "Installation complete."
+
+systemctl enable systemd-resolved
+systemctl start systemd-resolved
+ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+systemctl restart systemd-resolved
+
+cat <<EOF > /etc/iwd/main.conf
+[General]
+EnableNetworkConfiguration=true
+EOF
+systemctl enable iwd
+systemctl start iwd
 
