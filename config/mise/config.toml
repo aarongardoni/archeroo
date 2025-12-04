@@ -1,3 +1,6 @@
 [tools]
 lua = "5.1"
 node = "latest"
+python = "latest"
+terraform = "latest"
+terragrunt = "latest"

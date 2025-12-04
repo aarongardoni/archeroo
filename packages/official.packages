@@ -1,3 +1,4 @@
+aws-cli
 azure-cli
 base
 base-devel
@@ -36,7 +37,6 @@ pipewire
 pipewire-alsa
 pipewire-audio
 pipewire-pulse
-python-pip
 ripgrep
 river
 slurp

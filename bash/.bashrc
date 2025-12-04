@@ -13,7 +13,7 @@ alias vim='nvim'
 alias wifi='impala'
 alias audio='wiremix'
 
-eval "$(starship init bash)"
 eval "$(mise activate bash)"
+eval "$(starship init bash)"
 eval "$(zoxide init bash --cmd cd)"
 eval "$(fzf --bash)"

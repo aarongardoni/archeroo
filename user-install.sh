@@ -125,3 +125,5 @@ stow --adopt -t ~/wallpapers/ wallpapers/
 stow --adopt -t ~ bash
 stow --adopt -t ~/.config config/
 
+echo "run mise install..."
+mise install
