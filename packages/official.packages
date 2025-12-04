@@ -54,6 +54,7 @@ waybar
 wget
 wiremix
 wireplumber
+wl-clipboard
 wlr-randr
 xdg-desktop-portal-wlr
 xdg-utils
