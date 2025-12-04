@@ -17,6 +17,7 @@ git
 github-cli
 grim
 gum
+gwenview
 impala
 intel-ucode
 iwd
@@ -46,6 +47,8 @@ swaylock
 tmux
 ttf-jetbrains-mono-nerd
 unzip
+vlc
+vlc-plugin-ffmpeg
 waybar
 wget
 wiremix

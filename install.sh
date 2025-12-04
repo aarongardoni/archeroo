@@ -23,6 +23,11 @@ echo
 
 mapfile -t app_pkgs < <(cat packages/aur.packages packages/official.packages | sed 's/-.*//' | sort | uniq)
 
+exceptions=(
+  "com.mitchellh.ghostty"
+  "org.kde.gwenview"
+)
+
 pushd /usr/share/applications;
   for file in *.desktop; do
     # Check if the item is a regular file
@@ -32,6 +37,13 @@ pushd /usr/share/applications;
 
       for app_pkg in "${app_pkgs[@]}"; do
         if [[ "$app_pkg" == "$app_stem" ]]; then
+          found=true
+          break
+        fi
+      done
+
+      for exception in "${exceptions[@]}"; do
+        if [[ "$exception" == "$app_stem" ]]; then
           found=true
           break
         fi
