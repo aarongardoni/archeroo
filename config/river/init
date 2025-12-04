@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # start waybar
-waybar &
+waybar > ~/.waybar.log 2>&1 &
 
 # set desktop wallpaper
 swaybg -i /home/aaron/wallpapers/a_cartoon_of_a_island_with_a_bridge_and_trees.jpg -m fill &
