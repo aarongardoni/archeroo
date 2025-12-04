@@ -1,5 +1,36 @@
 #!/bin/bash
 
+if [ "$EUID" -eq 0 ]; then
+  echo "This script should not be run as root. Please run it as a regular user."
+  exit 1
+fi
+
+echo
+echo "--- Installing yay"
+echo
+
+rm -rf yay
+git clone https://aur.archlinux.org/yay.git
+pushd yay
+  makepkg -si
+popd
+rm -rf yay
+
+echo
+echo "--- Installing packages"
+echo
+
+mapfile -t app_pkgs < <(cat packages/aur.packages | sort | uniq)
+
+echo "Syncing yay databases..."
+yay -Sy --noconfirm
+
+echo "Starting installation of aur packages..."
+
+yay -S --noconfirm "${app_pkgs[@]}"
+
+echo "Installation complete."
+
 echo
 echo "--- Creating sym links"
 echo
