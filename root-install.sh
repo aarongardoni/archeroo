@@ -28,3 +28,6 @@ EOF
 systemctl enable iwd
 systemctl start iwd
 
+systemctl enable bluetooth
+systemctl start bluetooth
+
