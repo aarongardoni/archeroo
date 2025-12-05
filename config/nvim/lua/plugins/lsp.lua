@@ -222,20 +222,21 @@ return {
         -- ts_ls = {},
         --
 
-        lua_ls = {
-          -- cmd = { ... },
-          -- filetypes = { ... },
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
+        -- TODO: Mason lua lsp no worky see workaround below
+        -- lua_ls = {
+        --   -- cmd = { ... },
+        --   -- filetypes = { ... },
+        --   -- capabilities = {},
+        --   settings = {
+        --     Lua = {
+        --       completion = {
+        --         callSnippet = 'Replace',
+        --       },
+        --       -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+        --       -- diagnostics = { disable = { 'missing-fields' } },
+        --     },
+        --   },
+        -- },
       }
 
       -- Ensure the servers and tools above are installed
@@ -271,6 +272,37 @@ return {
           end,
         },
       }
+
+      vim.lsp.config('lua_ls', {
+        -- Use the system binary directly
+        cmd = { '/usr/bin/lua-language-server' },
+        settings = {
+          Lua = {
+            completion = {
+              callSnippet = 'Replace',
+            },
+            -- Standard lua_ls settings
+            runtime = {
+              version = 'LuaJIT',
+            },
+            diagnostics = {
+              globals = { 'vim' },
+              disable = { 'missing-fields' },
+            },
+            workspace = {
+              library = {
+                vim.env.VIMRUNTIME,
+              },
+              checkThirdParty = false, -- Optional: helps performance
+            },
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      })
+
+      vim.lsp.enable 'lua_ls'
     end,
   },
 }
