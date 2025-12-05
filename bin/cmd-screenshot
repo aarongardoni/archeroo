@@ -19,5 +19,6 @@ esac
 
 if [[ $PROCESSING == "slurp" ]]; then
   grim -g "$SELECTION" - | wl-copy
+  notify-send "Screenshot copied to clipboard"
 fi
 

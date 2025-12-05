@@ -46,8 +46,10 @@ screenrecording_active() {
 if screenrecording_active; then
   stop_screenrecording
   toggle_screenrecording_indicator
+  notify-send "Screen recording saved to $OUTPUT_DIR" -t 2000
 else
   start_screenrecording
   toggle_screenrecording_indicator
+  notify-send "Screen recording started" -t 1000
 fi
 

@@ -4,10 +4,14 @@ return {
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   {
     'nvimdev/dashboard-nvim',
-    event = 'VimEnter',
+    event = 'vimenter',
     config = function()
       require('dashboard').setup {
-        -- config
+        config = {
+          week_header = {
+            enable = true,
+          },
+        },
       }
     end,
     dependencies = { { 'nvim-tree/nvim-web-devicons' } },

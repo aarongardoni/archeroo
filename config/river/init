@@ -32,9 +32,7 @@ riverctl map normal None Print spawn cmd-screenshot
 # terminal
 riverctl map normal Super+Shift Return spawn ghostty
 # lock
-riverctl map normal Super l spawn 'swaylock -f'
-# lock & suspend
-riverctl map normal Super+Shift L spawn 'swaylock -f && systemctl suspend'
+riverctl map normal Super+Shift L spawn 'swaylock -f'
 # record
 riverctl map normal Super+Shift R spawn 'cmd-screen-record'
 # discord
