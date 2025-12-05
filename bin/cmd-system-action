@@ -1,24 +1,29 @@
 #!/bin/bash
 
-fzf_argrs=(
-  --border=sharp
-  --border-label="Package Uninstall"
-)
+options=$(printf "  Lock\n󰤄  Sleep\n  Hibernate\n  Reboot\n󰚦  Shutdown\n  Capture Area\n󰨤  Record Area")
 
-options=$(printf "lock\nsuspend\nreboot\nshutdown\n")
-CHOICE=$(echo "$options" | fzf "${fzf_args[@]}")
+CHOICE=$(echo "$options" | fuzzel --dmenu)
 
 case "$CHOICE" in
-  lock)
+  *"Lock")
     swaylock
     ;;
-  suspend)
+  *"Sleep")
     riverctl spawn 'swaylock -f && systemctl suspend'
     ;;
-  shutdown)
+  *"Hibernate")
+    riverctl spawn 'swaylock -f && systemctl hiberante'
+    ;;
+  *"Shutdown")
     systemctl poweroff
     ;;
-  reboot)
+  *"Reboot")
     systemctl reboot
+    ;;
+  *"Capture Area")
+    cmd-screenshot
+    ;;
+  *"Record Area")
+    cmd-screen-record
     ;;
 esac

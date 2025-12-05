@@ -1,42 +1,5 @@
 #!/bin/bash
 
-fzf_args=(
-    --color 'pointer:green,marker:green'
-    --border=sharp
-    --border-label="App Menu"
-)
-
-filter_valid_apps() {
-    local desktop_files=("/usr/share/applications/"*.desktop)
-
-    for file in "${desktop_files[@]}"; do
-        if rg -q '^NoDisplay=true$' "$file" 2>/dev/null; then
-            continue
-        fi
-
-        if rg -q '^Hidden=true$' "$file" 2>/dev/null; then
-            continue
-        fi
-
-        if ! rg -q '^Type=Application$' "$file" 2>/dev/null; then
-            continue
-        fi
-
-        if ! rg -q '^Icon=(.*)$' "$file" 2>/dev/null; then
-            continue
-        fi
-
-        # Print basename without .desktop extension
-        basename "${file%.desktop}"
-    done
-}
-
-app_name=$(filter_valid_apps | fzf "${fzf_args[@]}")
-
-if [[ -n $app_name ]]; then
-  # runelite needs this for resizing and probably other JVM apps
-  export _JAVA_AWT_WM_NONREPARENTING=1
-  setsid gtk-launch $app_name
-  gum spin --spinner dot --title "Launching $app_name..." -- sleep 0.25
-fi
-
+# runelite needs this for resizing and probably other JVM apps
+export _JAVA_AWT_WM_NONREPARENTING=1
+fuzzel

@@ -12,7 +12,7 @@ dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 systemctl --user restart xdg-desktop-portal
 
 # system actions
-riverctl map normal Super Escape spawn 'cmd-open-floating-terminal cmd-system-action'
+riverctl map normal Super Escape spawn cmd-system-action
 # install pacman package
 riverctl map normal Super i spawn 'cmd-open-floating-terminal cmd-pkg-install'
 # install aur package
@@ -20,11 +20,11 @@ riverctl map normal Super+Shift i spawn 'cmd-open-floating-terminal cmd-pkg-aur-
 # remove package
 riverctl map normal Super+Shift u spawn 'cmd-open-floating-terminal cmd-pkg-remove'
 # app-launcher
-riverctl map normal Super Space spawn 'cmd-open-floating-terminal cmd-app-launcher'
+riverctl map normal Super Space spawn cmd-app-launcher
 # wifi
-riverctl map normal Super+Shift W spawn 'cmd-open-floating-terminal impala'
+riverctl map normal Super+Shift W spawn impala
 # audio
-riverctl map normal Super+Shift A spawn 'cmd-open-floating-terminal wiremix'
+riverctl map normal Super+Shift A spawn wiremix
 # browser
 riverctl map normal Super+Shift B spawn 'gtk-launch $(xdg-settings get default-web-browser)'
 # screenshot
@@ -127,6 +127,16 @@ done
 all_tags=$(((1 << 32) - 1))
 riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
+
+# Scratch pad
+scratch_tag=$((1 << 20))
+
+riverctl map normal Super S toggle-focused-tags ${scratch_tag}		# toggle the scratchpad
+riverctl map normal Super+Shift S set-view-tags ${scratch_tag}		# send windows to the scratchpad
+
+# Set spawn tagmask to ensure new windows do not have the scratchpad tag unless explicitly set.
+all_but_scratch_tag=$(( ((1 << 32) - 1) ^ $scratch_tag ))
+riverctl spawn-tagmask ${all_but_scratch_tag}
 
 # Super+Space to toggle float
 riverctl map normal Super T toggle-float
