@@ -7,14 +7,20 @@ return {
     event = 'InsertEnter',
     opts = {},
   },
-  { -- Add indentation guides even on blank lines
+  {
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
     main = 'ibl',
     opts = {
-      indent = { char = '│', highlight = 'IblChar' },
-      scope = { char = '│', highlight = 'IblScopeChar' },
+      indent = {
+        char = '┆', -- Character for indent lines
+        tab_char = '┆', -- Character for tab indent lines
+      },
+      scope = {
+        enabled = true,
+      },
+      exclude = {
+        filetypes = { 'help', 'terminal', 'lazy', 'mason' }, -- Exclude specific filetypes
+      },
     },
   },
   { -- Collection of various small independent plugins/modules
