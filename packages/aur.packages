@@ -4,3 +4,4 @@ limine-mkinitcpio-hook
 slack-desktop-wayland
 spotify
 wayfreeze-git
+xdg-terminal-exec

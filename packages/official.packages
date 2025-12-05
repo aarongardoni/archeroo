@@ -3,6 +3,7 @@ azure-cli
 base
 base-devel
 bluetui
+bluez
 bluez-utils
 btop
 docker
