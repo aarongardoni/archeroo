@@ -3,6 +3,16 @@ return {
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+        -- config
+      }
+    end,
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
+  },
+  {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     opts = {},
@@ -21,7 +31,7 @@ return {
         enabled = true,
       },
       exclude = {
-        filetypes = { 'help', 'terminal', 'lazy', 'mason' }, -- Exclude specific filetypes
+        filetypes = { 'help', 'terminal', 'lazy', 'mason', 'dashboard', 'markdown' }, -- Exclude specific filetypes
       },
     },
   },

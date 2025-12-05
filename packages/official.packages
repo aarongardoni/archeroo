@@ -2,6 +2,7 @@ aws-cli
 azure-cli
 base
 base-devel
+binutils
 bluetui
 bluez
 bluez-utils
