@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $(pacman -Qu --explicit | wc -l) -gt 0 ] && [ $(yay -Quq --explicit | wc -l) -gt 0 ]; then
+if [ $(pacman -Qu --explicit | wc -l) -gt 0 ] || [ $(yay -Quq --explicit | wc -l) -gt 0 ]; then
   echo "There are updates available."
   exit 0
 else

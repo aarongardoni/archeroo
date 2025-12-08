@@ -22,9 +22,9 @@ riverctl map normal Super+Shift u spawn 'cmd-open-floating-terminal cmd-pkg-remo
 # app-launcher
 riverctl map normal Super Space spawn cmd-app-launcher
 # wifi
-riverctl map normal Super+Shift W spawn 'xdg-terminal-exec impala'
+riverctl map normal Super+Shift W spawn 'cmd-open-floating-terminal impala'
 # audio
-riverctl map normal Super+Shift A spawn 'xdg-terminal-exec wiremix'
+riverctl map normal Super+Shift A spawn 'cmd-open-floating-terminal wiremix'
 # browser
 riverctl map normal Super+Shift B spawn 'gtk-launch $(xdg-settings get default-web-browser)'
 # screenshot

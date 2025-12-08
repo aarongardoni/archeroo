@@ -2,6 +2,7 @@ aws-cli
 azure-cli
 base
 base-devel
+bash-completion
 binutils
 bluetui
 bluez
