@@ -42,6 +42,10 @@ riverctl map normal Super+Shift O spawn 'bolt-launcher'
 # spotify (music)
 riverctl map normal Super+Shift M spawn 'spotify'
 
+# Moving the cursor over a view will focus that view.
+# Moving the cursor within a view will not re-focus that view if focus has moved elsewhere.
+riverctl focus-follows-cursor normal
+
 # Super+Q to close the focused view
 riverctl map normal Super Q close
 
