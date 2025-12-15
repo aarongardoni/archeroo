@@ -12,7 +12,7 @@ case "$CHOICE" in
     riverctl spawn 'swaylock -f && systemctl suspend'
     ;;
   *"Hibernate")
-    riverctl spawn 'swaylock -f && systemctl hiberante'
+    riverctl spawn 'swaylock -f && systemctl hibernate'
     ;;
   *"Shutdown")
     systemctl poweroff
