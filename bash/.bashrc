@@ -15,7 +15,7 @@ export XDG_CURRENT_DESKTOP=river
 
 alias ls='eza -l'
 alias grep='grep --color=auto'
-alias vim='nvim'
+alias v='nvim'
 alias wifi='impala'
 alias audio='wiremix'
 
