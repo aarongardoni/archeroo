@@ -37,6 +37,7 @@ mise
 neovim
 nvidia-open
 nvidia-utils
+pacman-contrib
 pamixer
 pipewire
 pipewire-alsa
