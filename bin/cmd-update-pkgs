@@ -1,24 +1,32 @@
 #!/bin/bash
 
-echo "Pacman: $(pacman -Qu --explicit | wc -l)"
-pacman -Qu --explicit
+# 1. Get list of all available updates safely
+# 2. Get list of explicitly installed packages
+# 3. Use 'grep' to find the intersection (updates for explicit packages)
+EXPLICIT_LIST=$(pacman -Qeq)
+PAC_UPDATES=$(checkupdates 2>/dev/null | grep -Fwf <(echo "$EXPLICIT_LIST"))
+PAC_COUNT=$(echo "$PAC_UPDATES" | grep -c .)
 
-echo
-echo "AUR: $(yay -Qu --explicit | wc -l)"
-yay -Qu --explicit
+# yay handles AUR explicit filtering with --explicit
+AUR_UPDATES=$(yay -Qua --explicit 2>/dev/null)
+AUR_COUNT=$(echo "$AUR_UPDATES" | grep -c .)
 
-gum confirm "Update all?"
+echo "Pacman Updates (Explicit): $PAC_COUNT"
+[ "$PAC_COUNT" -gt 0 ] && echo "$PAC_UPDATES"
 
-if [ $? -eq 0 ]; then
-  sudo pacman -Syu --noconfirm
-  yay -Syu --noconfirm
-else
+echo -e "\nAUR Updates (Explicit): $AUR_COUNT"
+[ "$AUR_COUNT" -gt 0 ] && echo "$AUR_UPDATES"
+
+# Total check for the prompt
+if [ $((PAC_COUNT + AUR_COUNT)) -eq 0 ]; then
+    echo "No explicit updates found."
     exit 0
 fi
 
-# signal waybar
-pkill -RTMIN+7 waybar
+echo ""
+gum confirm "Update all?" && {
+  yay -Syu
+  pkill -RTMIN+7 waybar
+  command -v cmd-show-done &> /dev/null && cmd-show-done
+}
 
-cmd-show-done
-
-exit 0
