@@ -1,21 +1,37 @@
 #!/bin/bash
 
-echo "Packages to update:"
-checkupdates
+# Define the temp db path (1000 is your UID)
+CHECKUP_DB="/tmp/checkup-db-$(id -u)"
 
-echo
-gum confirm "Update all?"
+# Clean up stale locks if they exist
+if [ -f "$CHECKUP_DB/db.lck" ]; then
+    rm -f "$CHECKUP_DB/db.lck"
+fi
 
-if [ $? -eq 0 ]; then
-  sudo pacman -Syu --noconfirm
-  yay -Syu --noconfirm
-else
+updates=$(checkupdates 2>/dev/null)
+
+if [ -z "$updates" ]; then
+    echo "System is already up to date!"
+    # Optional: still signal waybar to clear the "updates available" icon
+    pkill -RTMIN+7 waybar
     exit 0
 fi
 
-# signal waybar
-pkill -RTMIN+7 waybar
+echo "Packages to update:"
+echo "$updates"
+echo
 
-cmd-show-done
+# Use gum to confirm
+if gum confirm "Update all?"; then
+    sudo pacman -Syu --noconfirm
+    # If using yay, you don't necessarily need the pacman command above
+    # as yay -Syu handles both repo and AUR packages.
+    yay -Syu --noconfirm
 
-exit 0
+    # Signal waybar
+    pkill -RTMIN+7 waybar
+    cmd-show-done
+else
+    echo "Update cancelled."
+    exit 0
+fi
