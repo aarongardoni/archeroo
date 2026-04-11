@@ -1,37 +1,32 @@
 #!/bin/bash
 
-# Define the temp db path (1000 is your UID)
-CHECKUP_DB="/tmp/checkup-db-$(id -u)"
+# checkupdates handles its own temp DB by default, but we'll filter for explicit
+# Using -Fcf counts the matches directly for the 'if' check
+raw_updates=$(checkupdates 2>/dev/null)
+explicit_updates=$(echo "$raw_updates" | grep -Ff <(pacman -Qeq))
 
-# Clean up stale locks if they exist
-if [ -f "$CHECKUP_DB/db.lck" ]; then
-    rm -f "$CHECKUP_DB/db.lck"
-fi
-
-updates=$(checkupdates 2>/dev/null)
-
-if [ -z "$updates" ]; then
-    echo "System is already up to date!"
-    # Optional: still signal waybar to clear the "updates available" icon
+if [ -z "$explicit_updates" ]; then
+    echo "Explicit packages are already up to date!"
     pkill -RTMIN+7 waybar
     exit 0
 fi
 
-echo "Packages to update:"
-echo "$updates"
+echo "Explicit packages to update:"
+echo "$explicit_updates"
 echo
 
 # Use gum to confirm
-if gum confirm "Update all?"; then
-    sudo pacman -Syu --noconfirm
-    # If using yay, you don't necessarily need the pacman command above
-    # as yay -Syu handles both repo and AUR packages.
+if gum confirm "Update all (Repo + AUR)?"; then
+    # yay -Syu is the "all-in-one" for Arch; no need for a separate pacman call
     yay -Syu --noconfirm
 
-    # Signal waybar
+    # Signal waybar to refresh
     pkill -RTMIN+7 waybar
-    cmd-show-done
+
+    # Check if your custom command exists before running
+    command -v cmd-show-done >/dev/null && cmd-show-done
 else
     echo "Update cancelled."
     exit 0
 fi
+

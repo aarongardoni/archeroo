@@ -1,11 +1,13 @@
 #!/bin/bash
 
-# checkupdates does NOT require sudo or -Sy
-UPDATES=$(checkupdates 2>/dev/null | wc -l)
-AUR_UPDATES=$(yay -Qua 2>/dev/null | wc -l)
+# Filter for explicit repo packages (no sudo needed)
+UPDATES=$(checkupdates 2>/dev/null | grep -Fcf <(pacman -Qeq))
+
+# Filter for explicit AUR packages using yay
+AUR_UPDATES=$(yay -Qua --explicit 2>/dev/null | wc -l)
 
 if [ "$UPDATES" -gt 0 ] || [ "$AUR_UPDATES" -gt 0 ]; then
-  echo "There are updates available."
+  echo "Updates: $((UPDATES + AUR_UPDATES))"
   exit 0
 else
   exit 1
