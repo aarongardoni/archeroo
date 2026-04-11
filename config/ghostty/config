@@ -24,3 +24,6 @@ keybind = ctrl+b>shift+'=new_split:down
 # close pane
 keybind = ctrl+b>x=close_surface
 
+# copy to system clipboard
+copy-on-select = clipboard
+
