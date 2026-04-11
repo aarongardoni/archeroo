@@ -6,3 +6,21 @@ window-decoration = false
 background-opacity = 0.8
 font-size = 14
 app-notifications = no-clipboard-copy
+
+# tmux-like leader pane navigation (doesn't conflict with nvim Ctrl-h/j/k/l)
+keybind = performable:ctrl+shift+h=goto_split:left
+keybind = performable:ctrl+shift+j=goto_split:bottom
+keybind = performable:ctrl+shift+k=goto_split:top
+keybind = performable:ctrl+shift+l=goto_split:right
+
+# layout-ish helpers
+keybind = ctrl+b>space=equalize_splits
+keybind = ctrl+b>z=toggle_split_zoom
+
+# splits
+keybind = ctrl+b>shift+5=new_split:right
+keybind = ctrl+b>shift+'=new_split:down
+
+# close pane
+keybind = ctrl+b>x=close_surface
+
