@@ -18,6 +18,7 @@ alias grep='grep --color=auto'
 alias v='nvim'
 alias wifi='impala'
 alias audio='wiremix'
+alias vclean='nvim_and_clean() { nvim "$1"; rm -f "$1"; }; nvim_and_clean'
 
 eval "$(mise activate bash)"
 eval "$(starship init bash)"
