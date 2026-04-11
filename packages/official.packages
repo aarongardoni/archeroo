@@ -1,3 +1,4 @@
+7zip
 aws-cli
 azure-cli
 base
@@ -14,6 +15,7 @@ efibootmgr
 eza
 fastfetch
 fd
+ffmpeg
 firefox
 fuzzel
 fzf
@@ -27,6 +29,7 @@ imagemagick
 impala
 intel-ucode
 iwd
+jq
 lazygit
 limine
 linux
@@ -44,6 +47,8 @@ pipewire
 pipewire-alsa
 pipewire-audio
 pipewire-pulse
+poppler
+resvg
 ripgrep
 river
 slurp
@@ -68,10 +73,5 @@ xdg-desktop-portal-wlr
 xdg-utils
 xorg-xwayland
 yazi
-zoxide
 yazi
-ffmpeg
-7zip
-jq
-poppler
-resvg
+zoxide
