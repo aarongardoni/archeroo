@@ -23,6 +23,7 @@ github-cli
 grim
 gum
 gwenview
+imagemagick
 impala
 intel-ucode
 iwd
@@ -53,6 +54,7 @@ swaybg
 swaylock
 tmux
 ttf-jetbrains-mono-nerd
+udisks2
 unzip
 vlc
 vlc-plugin-ffmpeg
@@ -65,4 +67,11 @@ wlr-randr
 xdg-desktop-portal-wlr
 xdg-utils
 xorg-xwayland
+yazi
 zoxide
+yazi
+ffmpeg
+7zip
+jq
+poppler
+resvg
