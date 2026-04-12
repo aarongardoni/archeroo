@@ -10,10 +10,10 @@ app-notifications = no-clipboard-copy
 window-show-tab-bar = never
 
 # tmux-like leader pane navigation (doesn't conflict with nvim Ctrl-h/j/k/l)
-keybind = performable:super+h=goto_split:left
-keybind = performable:super+j=goto_split:bottom
-keybind = performable:super+k=goto_split:top
-keybind = performable:super+l=goto_split:right
+keybind = performable:ctrl+shift+h=goto_split:left
+keybind = performable:ctrl+shift+j=goto_split:bottom
+keybind = performable:ctrl+shift+k=goto_split:top
+keybind = performable:ctrl+shift+l=goto_split:right
 
 # layout helpers
 keybind = ctrl+b>space=equalize_splits
