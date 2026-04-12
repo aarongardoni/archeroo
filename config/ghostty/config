@@ -1,3 +1,4 @@
+# general
 theme = Catppuccin Mocha
 window-padding-x = 10
 window-padding-y = 10
@@ -9,12 +10,12 @@ app-notifications = no-clipboard-copy
 window-show-tab-bar = never
 
 # tmux-like leader pane navigation (doesn't conflict with nvim Ctrl-h/j/k/l)
-keybind = performable:ctrl+shift+h=goto_split:left
-keybind = performable:ctrl+shift+j=goto_split:bottom
-keybind = performable:ctrl+shift+k=goto_split:top
-keybind = performable:ctrl+shift+l=goto_split:right
+keybind = performable:super+h=goto_split:left
+keybind = performable:super+j=goto_split:bottom
+keybind = performable:super+k=goto_split:top
+keybind = performable:super+l=goto_split:right
 
-# layout-ish helpers
+# layout helpers
 keybind = ctrl+b>space=equalize_splits
 keybind = ctrl+b>z=toggle_split_zoom
 
@@ -31,15 +32,12 @@ keybind = ctrl+b>x=close_surface
 # copy to system clipboard
 copy-on-select = clipboard
 
-# Pipe screen into nvim
-keybind = ctrl+b>v=text:vclean\x20
+# pipe screen into nvim
+keybind = ctrl+b>e=text:vclean\x20
 keybind = chain=write_screen_file:paste
 keybind = chain=text:\n
 
-keybind = ctrl+b>u=scroll_page_up
-keybind = ctrl+b>d=scroll_page_down
-
-# Scroll Mode
+# scroll mode
 keybind = ctrl+b>s=activate_key_table:scroll_mode
 
 keybind = scroll_mode/k=scroll_page_lines:-1
