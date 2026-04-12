@@ -33,7 +33,7 @@ keybind = ctrl+b>x=close_surface
 copy-on-select = clipboard
 
 # pipe screen into nvim
-keybind = ctrl+b>e=text:vclean\x20
+keybind = ctrl+b>v=text:vclean\x20
 keybind = chain=write_screen_file:paste
 keybind = chain=text:\n
 
