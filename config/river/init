@@ -11,6 +11,9 @@ systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
 systemctl --user restart xdg-desktop-portal
 
+# red light
+wlsunset -l -33.86 -L 151.20 &
+
 # system actions
 riverctl map normal Super Escape spawn cmd-system-action
 # install pacman package
