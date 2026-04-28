@@ -1,5 +1,8 @@
 #!/bin/sh
 
+riverctl import-environment PATH
+riverctl import-environment XDG_CURRENT_DESKTOP
+
 # start waybar
 waybar > ~/.waybar.log 2>&1 &
 
@@ -13,6 +16,8 @@ systemctl --user restart xdg-desktop-portal
 
 # red light
 wlsunset -l -33.86 -L 151.20 &
+# dark pref
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 # system actions
 riverctl map normal Super Escape spawn cmd-system-action
