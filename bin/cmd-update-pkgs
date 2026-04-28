@@ -8,6 +8,7 @@ explicit_updates=$(echo "$raw_updates" | grep -Ff <(pacman -Qeq))
 if [ -z "$explicit_updates" ]; then
     echo "Explicit packages are already up to date!"
     pkill -RTMIN+7 waybar
+    command -v cmd-show-done >/dev/null && cmd-show-done
     exit 0
 fi
 
