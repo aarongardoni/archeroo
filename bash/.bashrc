@@ -12,6 +12,8 @@
     . /usr/share/bash-completion/bash_completion
 
 export XDG_CURRENT_DESKTOP=river
+export TERM=screen-256color
+export EDITOR=nvim
 
 alias ls='eza -l'
 alias grep='grep --color=auto'
