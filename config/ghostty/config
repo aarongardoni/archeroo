@@ -9,44 +9,44 @@ font-size = 14
 app-notifications = no-clipboard-copy
 window-show-tab-bar = never
 
-# tmux-like leader pane navigation (doesn't conflict with nvim Ctrl-h/j/k/l)
-keybind = performable:ctrl+shift+h=goto_split:left
-keybind = performable:ctrl+shift+j=goto_split:bottom
-keybind = performable:ctrl+shift+k=goto_split:top
-keybind = performable:ctrl+shift+l=goto_split:right
-
-# layout helpers
-keybind = ctrl+b>space=equalize_splits
-keybind = ctrl+b>z=toggle_split_zoom
-
-# splits
-keybind = ctrl+b>shift+5=new_split:right
-keybind = ctrl+b>shift+'=new_split:down
-
-# tabs
-keybind = ctrl+b>n=new_tab
-
-# close pane
-keybind = ctrl+b>x=close_surface
-
-# copy to system clipboard
-copy-on-select = clipboard
-
-# pipe screen into nvim
-keybind = ctrl+b>v=text:vclean\x20
-keybind = chain=write_screen_file:paste
-keybind = chain=text:\n
-
-# scroll mode
-keybind = ctrl+b>s=activate_key_table:scroll_mode
-
-keybind = scroll_mode/k=scroll_page_lines:-1
-keybind = scroll_mode/j=scroll_page_lines:1
-keybind = scroll_mode/u=scroll_page_fractional:-0.5
-keybind = scroll_mode/d=scroll_page_fractional:0.5
-keybind = scroll_mode/g=scroll_to_top
-keybind = scroll_mode/shift+g=scroll_to_bottom
-
-keybind = scroll_mode/escape=deactivate_key_table
-keybind = scroll_mode/q=deactivate_key_table
-
+# # tmux-like leader pane navigation (doesn't conflict with nvim Ctrl-h/j/k/l)
+# keybind = performable:ctrl+shift+h=goto_split:left
+# keybind = performable:ctrl+shift+j=goto_split:bottom
+# keybind = performable:ctrl+shift+k=goto_split:top
+# keybind = performable:ctrl+shift+l=goto_split:right
+#
+# # layout helpers
+# keybind = ctrl+b>space=equalize_splits
+# keybind = ctrl+b>z=toggle_split_zoom
+#
+# # splits
+# keybind = ctrl+b>shift+5=new_split:right
+# keybind = ctrl+b>shift+'=new_split:down
+#
+# # tabs
+# keybind = ctrl+b>n=new_tab
+#
+# # close pane
+# keybind = ctrl+b>x=close_surface
+#
+# # copy to system clipboard
+# copy-on-select = clipboard
+#
+# # pipe screen into nvim
+# keybind = ctrl+b>v=text:vclean\x20
+# keybind = chain=write_screen_file:paste
+# keybind = chain=text:\n
+#
+# # scroll mode
+# keybind = ctrl+b>s=activate_key_table:scroll_mode
+#
+# keybind = scroll_mode/k=scroll_page_lines:-1
+# keybind = scroll_mode/j=scroll_page_lines:1
+# keybind = scroll_mode/u=scroll_page_fractional:-0.5
+# keybind = scroll_mode/d=scroll_page_fractional:0.5
+# keybind = scroll_mode/g=scroll_to_top
+# keybind = scroll_mode/shift+g=scroll_to_bottom
+#
+# keybind = scroll_mode/escape=deactivate_key_table
+# keybind = scroll_mode/q=deactivate_key_table
+#
