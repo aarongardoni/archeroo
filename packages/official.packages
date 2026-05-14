@@ -1,4 +1,3 @@
-wlsunset
 7zip
 aws-cli
 azure-cli
@@ -59,8 +58,10 @@ sudo
 swaybg
 swaylock
 tmux
+tree-sitter-cli
 ttf-jetbrains-mono-nerd
 udisks2
+ufw
 unzip
 vlc
 vlc-plugin-ffmpeg
@@ -70,6 +71,7 @@ wiremix
 wireplumber
 wl-clipboard
 wlr-randr
+wlsunset
 xdg-desktop-portal-wlr
 xdg-utils
 xorg-xwayland

@@ -31,3 +31,5 @@ systemctl start iwd
 systemctl enable bluetooth
 systemctl start bluetooth
 
+ufw enable
+systemctl enable bluetooth
