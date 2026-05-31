@@ -1,33 +1,35 @@
 #!/bin/bash
+# Interactive package updater, launched in a floating terminal from waybar.
+# Shows the same explicit repo+AUR updates as the waybar badge, then performs
+# a full system upgrade (the only safe upgrade path on Arch).
 
-# checkupdates handles its own temp DB by default, but we'll filter for explicit
-# Using -Fcf counts the matches directly for the 'if' check
-raw_updates=$(checkupdates 2>/dev/null)
-explicit_updates=$(echo "$raw_updates" | grep -Ff <(pacman -Qeq))
+set -uo pipefail
 
-if [ -z "$explicit_updates" ]; then
-    echo "Explicit packages are already up to date!"
-    pkill -RTMIN+7 waybar
-    command -v cmd-show-done >/dev/null && cmd-show-done
-    exit 0
+refresh_waybar() { pkill -RTMIN+7 waybar 2>/dev/null; }
+
+finish() {
+  refresh_waybar
+  command -v cmd-show-done >/dev/null && cmd-show-done
+}
+
+echo "Checking for updates..."
+updates=$(cmd-list-updates)
+
+if [[ -z "$updates" ]]; then
+  echo "Explicit packages are already up to date!"
+  finish
+  exit 0
 fi
 
-echo "Explicit packages to update:"
-echo "$explicit_updates"
+echo "Explicit packages with pending updates:"
+echo "$updates"
 echo
 
-# Use gum to confirm
-if gum confirm "Update all (Repo + AUR)?"; then
-    # yay -Syu is the "all-in-one" for Arch; no need for a separate pacman call
-    yay -Syu --noconfirm
-
-    # Signal waybar to refresh
-    pkill -RTMIN+7 waybar
-
-    # Check if your custom command exists before running
-    command -v cmd-show-done >/dev/null && cmd-show-done
+# Note: yay -Syu also pulls dependency/non-explicit updates — partial upgrades
+# are unsupported on Arch, so the full upgrade is intentional.
+if gum confirm "Run a full system upgrade (yay -Syu)?"; then
+  yay -Syu --noconfirm
+  finish
 else
-    echo "Update cancelled."
-    exit 0
+  echo "Update cancelled."
 fi
-

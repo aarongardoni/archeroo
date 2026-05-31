@@ -1,0 +1,35 @@
+#!/bin/bash
+# List pending updates for *explicitly installed* packages (repo + AUR).
+#
+# Output: one package per line as "name oldver -> newver", repo first then AUR.
+# Network calls are wrapped in `timeout` so callers (e.g. waybar) never hang.
+#
+# Flags:
+#   -c, --count   print only the number of pending explicit updates (0 if none)
+
+set -uo pipefail
+
+count_only=false
+[[ "${1:-}" == "-c" || "${1:-}" == "--count" ]] && count_only=true
+
+# Set of explicitly installed package names (one per line).
+explicit=$(pacman -Qqe 2>/dev/null)
+
+# Repo updates: checkupdates syncs its own temp db, so no sudo / no stale state.
+repo=$(timeout 60 checkupdates --nocolor 2>/dev/null)
+
+# AUR updates: yay queries the AUR RPC live.
+aur=$(timeout 60 yay -Qua 2>/dev/null)
+
+# Keep only lines whose package name (field 1) is an exact match for an
+# explicitly installed package. Exact match avoids the substring false matches
+# (e.g. "git" matching "git-lfs") that the old `grep -F` approach produced.
+updates=$(printf '%s\n%s\n' "$repo" "$aur" \
+  | awk 'NF' \
+  | awk 'NR==FNR { e[$1]; next } ($1 in e)' <(printf '%s\n' "$explicit") -)
+
+if $count_only; then
+  grep -c . <<<"$updates"
+else
+  [[ -n "$updates" ]] && printf '%s\n' "$updates"
+fi

@@ -1,15 +1,12 @@
 #!/bin/bash
+# waybar exec: emit a badge only when explicitly installed packages (repo + AUR)
+# have pending updates. Printing nothing leaves the module hidden.
 
-# Filter for explicit repo packages (no sudo needed)
-UPDATES=$(checkupdates 2>/dev/null | grep -Fcf <(pacman -Qeq))
+count=$(cmd-list-updates --count)
 
-# Filter for explicit AUR packages using yay
-AUR_UPDATES=$(yay -Qua --explicit 2>/dev/null | wc -l)
-
-if [ "$UPDATES" -gt 0 ] || [ "$AUR_UPDATES" -gt 0 ]; then
-  echo "Updates: $((UPDATES + AUR_UPDATES))"
+if [[ "${count:-0}" -gt 0 ]]; then
+  echo "Updates: $count"
   exit 0
 else
   exit 1
 fi
-
