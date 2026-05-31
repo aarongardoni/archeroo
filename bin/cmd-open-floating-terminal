@@ -1,12 +1,40 @@
 #!/bin/bash
 
 tui=$1
+app_id='com.mitchellh.ghostty.floating'
 
-riverctl rule-add -app-id 'com.mitchellh.ghostty.floating' float
+# Read the first enabled output's current mode + scale from wlr-randr.
+geo=$(awk '
+  /Enabled: yes/ { en=1 }
+  en && /px, .*current/ { split($1, m, "x"); w=m[1]; h=m[2] }
+  en && /Scale:/ { print w, h, $2; exit }
+' <(wlr-randr 2>/dev/null))
+
+read -r sw sh scale <<<"$geo"
+
+# Logical resolution = physical mode / scale (fall back to 1920x1080).
+if [[ -n "$sw" && -n "$sh" && -n "$scale" ]]; then
+  lw=$(awk -v w="$sw" -v s="$scale" 'BEGIN { printf "%d", w / s }')
+  lh=$(awk -v h="$sh" -v s="$scale" 'BEGIN { printf "%d", h / s }')
+else
+  lw=1920; lh=1080
+fi
+
+# Centered window sized to ~55% x 60% of the output.
+win_w=$(awk -v w="$lw" 'BEGIN { printf "%d", w * 0.55 }')
+win_h=$(awk -v h="$lh" 'BEGIN { printf "%d", h * 0.60 }')
+pos_x=$(awk -v w="$lw" -v ww="$win_w" 'BEGIN { printf "%d", (w - ww) / 2 }')
+pos_y=$(awk -v h="$lh" -v wh="$win_h" 'BEGIN { printf "%d", (h - wh) / 2 }')
+
+# Float + center. Replace any stale geometry rules so resolution changes stick.
+riverctl rule-add -app-id "$app_id" float
+riverctl rule-del -app-id "$app_id" dimensions 2>/dev/null
+riverctl rule-del -app-id "$app_id" position 2>/dev/null
+riverctl rule-add -app-id "$app_id" dimensions "$win_w" "$win_h"
+riverctl rule-add -app-id "$app_id" position "$pos_x" "$pos_y"
+
 riverctl spawn "ghostty \
   --theme='Catppuccin Frappe' \
-  --class=com.mitchellh.ghostty.floating \
+  --class=$app_id \
   --background-opacity=0.98 \
   -e bash -lc '$tui'"
-
-
