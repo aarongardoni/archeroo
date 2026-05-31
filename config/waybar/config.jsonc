@@ -7,6 +7,8 @@
   "modules-left": ["river/tags"],
   "modules-center": ["clock", "custom/update", "custom/screenrecording-indicator"],
   "modules-right": [
+    "cpu",
+    "memory",
     "group/tray-expander",
     "bluetooth",
     "network",
@@ -30,6 +32,18 @@
     "format-alt": "{:L%d %B W%V %Y}",
     "tooltip": false,
   },
+  "cpu": {
+    "format": "󰻠 {usage}%",
+    "interval": 5,
+    "tooltip": true,
+    "on-click": "cmd-open-floating-terminal btop"
+  },
+  "memory": {
+    "format": "󰍛 {percentage}%",
+    "interval": 5,
+    "tooltip-format": "{used:0.1f} GiB / {total:0.1f} GiB",
+    "on-click": "cmd-open-floating-terminal btop"
+  },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format": "{icon}",
@@ -52,7 +66,7 @@
     "on-click": "cmd-open-floating-terminal bluetui",
   },
   "pulseaudio": {
-    "format": "{icon} {volume}%",
+    "format": "{volume}% {icon}",
     "on-click": "cmd-open-floating-terminal wiremix",
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
@@ -81,7 +95,7 @@
     "return-type": "json"
   },
   "tray": {
-    "icon-size": 12,
+    "icon-size": 18,
     "spacing": 17
   }
 }
