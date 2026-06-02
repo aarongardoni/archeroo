@@ -16,7 +16,13 @@ count_only=false
 explicit=$(pacman -Qqe 2>/dev/null)
 
 # Repo updates: checkupdates syncs its own temp db, so no sudo / no stale state.
-repo=$(timeout 60 checkupdates --nocolor 2>/dev/null)
+# All checkupdates runs for a user share one temp db (/tmp/checkup-db-$UID)
+# guarded by a single lock. Two concurrent runs — e.g. the waybar badge's
+# scheduled check racing this click-triggered one — make the loser fail with
+# "Cannot fetch updates" and return nothing, silently hiding real updates.
+# flock serializes our callers so the second waits for the first instead.
+repo=$(timeout 90 flock "${TMPDIR:-/tmp}/checkup-db-${UID}.lock" \
+  checkupdates --nocolor 2>/dev/null)
 
 # AUR updates: yay queries the AUR RPC live.
 aur=$(timeout 60 yay -Qua 2>/dev/null)
