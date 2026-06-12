@@ -14,6 +14,7 @@
 export XDG_CURRENT_DESKTOP=river
 export TERM=screen-256color
 export EDITOR=nvim
+export PATH="$HOME/.local/bin:$PATH"
 
 alias ls='eza -l'
 alias grep='grep --color=auto'

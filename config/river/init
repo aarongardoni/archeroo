@@ -49,6 +49,8 @@ riverctl map normal Super+Shift D spawn 'discord'
 riverctl map normal Super+Shift O spawn 'bolt-launcher'
 # spotify (music)
 riverctl map normal Super+Shift M spawn 'spotify'
+# launch pass fzf
+riverctl map normal Super p spawn 'cmd-open-floating-terminal cmd-pass-copy'
 
 # Moving the cursor over a view will focus that view.
 # Moving the cursor within a view will not re-focus that view if focus has moved elsewhere.

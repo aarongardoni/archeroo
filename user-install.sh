@@ -124,6 +124,7 @@ echo "running stow..."
 stow --adopt -t ~/wallpapers/ wallpapers/
 stow --adopt -t ~ bash
 stow --adopt -t ~/.config config/
+stow --adopt -t ~/.gnupg gnupg/
 
 echo "run mise install..."
 mise install

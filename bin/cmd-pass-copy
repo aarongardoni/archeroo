@@ -1,0 +1,16 @@
+#!/usr/bin/env nu
+
+def pass_fzf [] {
+    let choice = (
+    ls ~/.password-store/**/*.gpg
+    | get name
+    | path relative-to ~/.password-store/
+    | str replace -r '\.gpg$' ""
+    | input list --fuzzy --no-footer "Select password:"
+  )
+
+    return $choice
+}
+
+let choice = pass_fzf
+pass show $choice -c

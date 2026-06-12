@@ -39,10 +39,12 @@ mako
 man-db
 mise
 neovim
+nushell
 nvidia-open
 nvidia-utils
 pacman-contrib
 pamixer
+pass
 pipewire
 pipewire-alsa
 pipewire-audio
