@@ -217,21 +217,29 @@ return {
         -- ts_ls = {},
         --
 
-        -- TODO: Mason lua lsp no worky see workaround below
-        -- lua_ls = {
-        --   -- cmd = { ... },
-        --   -- filetypes = { ... },
-        --   -- capabilities = {},
-        --   settings = {
-        --     Lua = {
-        --       completion = {
-        --         callSnippet = 'Replace',
-        --       },
-        --       -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-        --       -- diagnostics = { disable = { 'missing-fields' } },
-        --     },
-        --   },
-        -- },
+        -- Installed cross-platform via mason (see ensure_installed below).
+        -- mason drops the correct binary on PATH for macOS and Linux alike,
+        -- so no hardcoded `cmd` is needed.
+        lua_ls = {
+          settings = {
+            Lua = {
+              completion = {
+                callSnippet = 'Replace',
+              },
+              runtime = { version = 'LuaJIT' },
+              diagnostics = {
+                globals = { 'vim' },
+                -- Ignore Lua_LS's noisy `missing-fields` warnings
+                disable = { 'missing-fields' },
+              },
+              workspace = {
+                library = { vim.env.VIMRUNTIME },
+                checkThirdParty = false, -- helps performance
+              },
+              telemetry = { enable = false },
+            },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -250,6 +258,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'lua-language-server', -- Lua LSP (mason package name; cross-platform)
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -268,36 +277,6 @@ return {
         },
       }
 
-      vim.lsp.config('lua_ls', {
-        -- Use the system binary directly
-        cmd = { '/usr/bin/lua-language-server' },
-        settings = {
-          Lua = {
-            completion = {
-              callSnippet = 'Replace',
-            },
-            -- Standard lua_ls settings
-            runtime = {
-              version = 'LuaJIT',
-            },
-            diagnostics = {
-              globals = { 'vim' },
-              disable = { 'missing-fields' },
-            },
-            workspace = {
-              library = {
-                vim.env.VIMRUNTIME,
-              },
-              checkThirdParty = false, -- Optional: helps performance
-            },
-            telemetry = {
-              enable = false,
-            },
-          },
-        },
-      })
-
-      vim.lsp.enable 'lua_ls'
     end,
   },
 }
