@@ -35,6 +35,16 @@ echo "Starting installation of aur packages..."
 
 yay -S --noconfirm --needed "${app_pkgs[@]}"
 
+echo
+echo "--- Installing Flatpak apps"
+echo
+
+flatpak remote-add --if-not-exists flathub \
+  https://flathub.org/repo/flathub.flatpakrepo
+
+mapfile -t flatpaks < <(sort -u packages/flatpak.packages)
+flatpak install -y flathub "${flatpaks[@]}"
+
 echo "Installation complete."
 
 echo
@@ -116,12 +126,12 @@ echo "--- Copying files"
 echo
 
 echo "creating dirs..."
-mkdir -p ~/wallpapers/
-mkdir -p ~/screenshots/
-mkdir -p ~/videos/
+mkdir -p ~/Pictures/wallpapers/
+mkdir -p ~/Pictures/screenshots/
+mkdir -p ~/Pictures/videos/
 
 echo "running stow..."
-stow --adopt -t ~/wallpapers/ wallpapers/
+stow --adopt -t ~/Pictures/wallpapers/ wallpapers/
 stow --adopt -t ~ bash
 stow --adopt -t ~/.config config/
 stow --adopt -t ~/.gnupg gnupg/

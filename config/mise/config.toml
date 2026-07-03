@@ -1,7 +1,12 @@
 [tools]
+claude = "latest"
+herdr = "latest"
+k9s = "latest"
+kubectl = "latest"
+kubeseal = "latest"
 lua = "5.1"
 node = "latest"
-python = "latest"
+odin = "latest"
 terraform = "latest"
 terragrunt = "latest"
 zig = "latest"

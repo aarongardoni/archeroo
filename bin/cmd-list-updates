@@ -1,11 +1,13 @@
 #!/bin/bash
-# List pending updates for *explicitly installed* packages (repo + AUR).
+# List pending updates for *explicitly installed* packages (repo + AUR) plus
+# installed Flatpak apps.
 #
-# Output: one package per line as "name oldver -> newver", repo first then AUR.
+# Output: one package per line, repo first then AUR ("name oldver -> newver"),
+# then Flatpak app IDs.
 # Network calls are wrapped in `timeout` so callers (e.g. waybar) never hang.
 #
 # Flags:
-#   -c, --count   print only the number of pending explicit updates (0 if none)
+#   -c, --count   print only the number of pending updates (0 if none)
 
 set -uo pipefail
 
@@ -27,12 +29,19 @@ repo=$(timeout 90 flock "${TMPDIR:-/tmp}/checkup-db-${UID}.lock" \
 # AUR updates: yay queries the AUR RPC live.
 aur=$(timeout 60 yay -Qua 2>/dev/null)
 
+# Flatpak updates: app IDs of installed Flatpak apps with a pending update.
+flatpak_up=$(timeout 60 flatpak remote-ls --updates --app --columns=application 2>/dev/null)
+
 # Keep only lines whose package name (field 1) is an exact match for an
 # explicitly installed package. Exact match avoids the substring false matches
 # (e.g. "git" matching "git-lfs") that the old `grep -F` approach produced.
 updates=$(printf '%s\n%s\n' "$repo" "$aur" \
   | awk 'NF' \
   | awk 'NR==FNR { e[$1]; next } ($1 in e)' <(printf '%s\n' "$explicit") -)
+
+# Flatpak app IDs aren't pacman-explicit packages, so they bypass the filter
+# above and are appended directly.
+updates=$(printf '%s\n%s\n' "$updates" "$flatpak_up" | awk 'NF')
 
 if $count_only; then
   grep -c . <<<"$updates"

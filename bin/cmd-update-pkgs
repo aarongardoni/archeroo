@@ -1,7 +1,7 @@
 #!/bin/bash
 # Interactive package updater, launched in a floating terminal from waybar.
-# Shows the same explicit repo+AUR updates as the waybar badge, then performs
-# a full system upgrade (the only safe upgrade path on Arch).
+# Shows the same repo+AUR+Flatpak updates as the waybar badge, then performs
+# a full system upgrade (the only safe upgrade path on Arch) plus Flatpak.
 
 set -uo pipefail
 
@@ -27,8 +27,9 @@ echo
 
 # Note: yay -Syu also pulls dependency/non-explicit updates — partial upgrades
 # are unsupported on Arch, so the full upgrade is intentional.
-if gum confirm "Run a full system upgrade (yay -Syu)?"; then
+if gum confirm "Run a full system upgrade (yay -Syu + flatpak update)?"; then
   yay -Syu --noconfirm
+  flatpak update -y
   finish
 else
   echo "Update cancelled."

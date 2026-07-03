@@ -17,6 +17,7 @@ fastfetch
 fd
 ffmpeg
 firefox
+flatpak
 fuzzel
 fzf
 ghostty
@@ -49,6 +50,7 @@ pipewire
 pipewire-alsa
 pipewire-audio
 pipewire-pulse
+podman
 poppler
 resvg
 ripgrep

@@ -7,7 +7,7 @@ riverctl import-environment XDG_CURRENT_DESKTOP
 waybar > ~/.waybar.log 2>&1 &
 
 # set desktop wallpaper
-swaybg -i /home/aaron/wallpapers/a_cartoon_of_a_island_with_a_bridge_and_trees.jpg -m fill &
+swaybg -i /home/aaron/Pictures/wallpapers/a_cartoon_of_a_island_with_a_bridge_and_trees.jpg -m fill &
 
 # screen sharing stuff
 systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -46,9 +46,9 @@ riverctl map normal Super+Shift R spawn 'cmd-screen-record'
 # discord
 riverctl map normal Super+Shift D spawn 'discord'
 # old school runescape
-riverctl map normal Super+Shift O spawn 'bolt-launcher'
+riverctl map normal Super+Shift O spawn 'flatpak run com.adamcake.Bolt'
 # spotify (music)
-riverctl map normal Super+Shift M spawn 'spotify'
+riverctl map normal Super+Shift M spawn 'flatpak run com.spotify.Client'
 # launch pass fzf
 riverctl map normal Super p spawn 'cmd-open-floating-terminal cmd-pass-copy'
 
