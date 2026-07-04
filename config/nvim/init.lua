@@ -16,3 +16,7 @@ rtp:prepend(lazypath)
 
 local plugins = require 'plugins'
 require('lazy').setup(plugins, { ui = {} })
+
+if vim.fn.executable 'herdr' == 1 then
+  require 'herdr_nav'
+end

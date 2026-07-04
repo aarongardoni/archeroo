@@ -65,7 +65,7 @@ onboarding = false
 # Prefix-mode actions
 # help = "prefix+?"
 # settings = "prefix+s"
-# detach = "prefix+q"
+detach = "prefix+d"
 # reload_config = "prefix+shift+r"
 # open_notification_target = "prefix+o"
 # workspace_picker = "prefix+w"
@@ -91,10 +91,10 @@ rename_tab = "prefix+,"
 # close_tab = "prefix+shift+x"
 # rename_pane = "prefix+shift+p"
 # edit_scrollback = "prefix+e"
-focus_pane_left = "ctrl+h"
-focus_pane_down = "ctrl+j"
-focus_pane_up = "ctrl+k"
-focus_pane_right = "ctrl+l"
+# focus_pane_left = "ctrl+h"
+# focus_pane_down = "ctrl+j"
+# focus_pane_up = "ctrl+k"
+# focus_pane_right = "ctrl+l"
 # cycle_pane_next = "prefix+tab"
 # cycle_pane_previous = "prefix+shift+tab"
 # last_pane = ""          # optional, unset by default; bind e.g. "prefix+tab" for global back-and-forth
@@ -121,6 +121,30 @@ navigate_workspace_down = "j"
 # key = "prefix+alt+g"
 # type = "pane"
 # command = "lazygit"
+
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "vim-herdr-navigation.left"
+description = "navigate left (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "vim-herdr-navigation.down"
+description = "navigate down (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "vim-herdr-navigation.up"
+description = "navigate up (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "vim-herdr-navigation.right"
+description = "navigate right (vim/herdr)"
 
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
@@ -188,6 +212,7 @@ navigate_workspace_down = "j"
 # accent = "cyan"
 
 # Background notification popup delivery
+show_agent_labels_on_pane_borders = false
 [ui.toast]
 # off = disable pop-up notifications
 # herdr = show in-app toasts
@@ -196,6 +221,7 @@ navigate_workspace_down = "j"
 # delivery = "off"
 # delay_seconds = 1
 
+delivery = "off"
 [ui.toast.herdr]
 # position = "bottom-right"
 
